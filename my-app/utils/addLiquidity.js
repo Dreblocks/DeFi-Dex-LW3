@@ -27,7 +27,12 @@ export const addLiquidity = async (
     try {
         const tokenContract = new Contract(
             TOKEN_CONTRACT_ADDRESS,
-            TOKEN_ADDRESS_ABI,
+            TOKEN_CONTRACT_ABI,
+            signer
+        );
+         const exchangeContract = new Contract(
+            EXCHANGE_CONTRACT_ADDRESS,
+            EXCHANGE_CONTRACT_ABI,
             signer
         );
         // Because CD tokens are an ERC20, user would need to give the contract allowance
@@ -37,7 +42,7 @@ export const addLiquidity = async (
             addCDAmountWei.toString()
         );
         await tx.wait();
-        tx = await EXCHANGE_CONTRACT_ABI.addLiquidity(addCDAmountWei, {
+        tx = await exchangeContract.addLiquidity(addCDAmountWei, {
             value: AddEtherAmountWei,
         });
         //tx.wait() means we are waiting for the transaction to get mined

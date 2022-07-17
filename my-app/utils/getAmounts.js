@@ -54,7 +54,7 @@ export const getLPTokensBalance = async (provider, address) => {
             EXCHANGE_CONTRACT_ABI,
             provider
         );
-        const balanceLPTokens = await exchangeContract.balanceOf(address);
+        const balanceOfLPTokens = await exchangeContract.balanceOf(address);
         return balanceOfLPTokens;
     } catch (err) {
         console.error(err);
@@ -62,12 +62,12 @@ export const getLPTokensBalance = async (provider, address) => {
 };
 
 // getReserveOfCDTokens: Retrieves the amount of CD tokens in the exchange contract address
-export const getReserveOfCDTokens = async (provider, address) => {
+export const getReserveOfCDTokens = async (provider) => {
     try {
         const exchangeContract = new Contract(
             EXCHANGE_CONTRACT_ADDRESS,
             EXCHANGE_CONTRACT_ABI,
-            address
+            provider
         );
         const reserve = await exchangeContract.getReserve();
         return reserve;
